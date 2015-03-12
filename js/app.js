@@ -31,8 +31,8 @@ $(document).ready(function(){
   	});
 
   	function newGame() {
-  		randomNumber = getRandomNumber();
-  		guessList = [];
+  		getRandomNumber();
+  		guessList = '';
   		guessCount = 0;
   		feedback = 'Make your guess!'
   		guess = '';
@@ -45,8 +45,6 @@ $(document).ready(function(){
 	function getRandomNumber() {
   		randomNumber = (Math.floor((Math.random() * 100) + 1));
     }
-
-    getRandomNumber();
   	
   	console.log('Secret number is ' + randomNumber);
   	
@@ -55,7 +53,6 @@ $(document).ready(function(){
 
  	$("#userGuess").keydown(function (enter) {
  		if (enter.keyCode == 13){
- 			checkGuess();
  			postGuess();
  		}
   	});
@@ -63,35 +60,36 @@ $(document).ready(function(){
 
   	function postGuess() {
   		var guess = $("#userGuess").val("");
-  		if(!checkGuess(guess)){
-  			guess = '';
-  			updateDisplay;
-  			return;
-  		}
-  		guessCount++;
-  		guessList.push(guess);
-  		userGuess = '';
-  		updateDisplay;
+  		var listItem = '<li>' + guess + '</li>'
+  		console.log(guess);
+  		$('#guessList').empty();
+  		$('#guessList').append(listItem);
+
+  		
   	}
 
 
-  	function checkGuess(input) {
-  		var guess = ($('#userGuess').val());
-  		guess = +guess;
-  		if((typeof guess != 'number') || (guess % 1 != 0)) {
-  			alert('Hey, you need to enter a number!');
-  		}
-  		else if(guess == NaN) {
-  			alert('Sorry, but you really do need to enter a number.')
-  		}
-   		else {
-  			console.log(guess);
-  		}
-  	}
+  	// function checkGuess(input) {
+  	// 	var guess = ($('#userGuess').val());
+  	// 	guess = +guess;
+  	// 	var checking = true;
+  	// 	if((typeof guess != 'number') || (guess % 1 != 0)) {
+  	// 		checking = false;
+  	// 		alert('Hey, you need to enter a number!');
+  	// 	}
+  	// 	else if(guess == NaN) {
+  	// 		checking = false;
+  	// 		alert('Sorry, but you really do need to enter a number.')
+  	// 	}
+   // 		else {
+  	// 		console.log(guess);
+  	// 		return;
+  	// 	}
+  	// }
 
-  	function updateDisplay() {
-  		$('#count').text(guessCount);
-  	}
+  	// function updateDisplay() {
+  	// 	$('#count').text(guessCount);
+  	// }
 
 
   	
