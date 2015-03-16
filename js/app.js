@@ -30,6 +30,7 @@ $(document).ready(function(){
    	var guessCount;
   	var feedback;
   	var guess;
+  	var diff;
   	
 
 
@@ -107,10 +108,10 @@ $(document).ready(function(){
   	/*-- Providing feedback on the guesses --*/
  
 function guessDiff() {
-	if(randomNumber > guess){
+	if(randomNumber >= guess){
 		diff = randomNumber - guess;
 	}
-	else if (guess > randomNumber) {
+	else if (guess >= randomNumber) {
 		diff = guess - randomNumber;
 	}
 	return diff;
