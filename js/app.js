@@ -106,7 +106,6 @@ $(document).ready(function(){
   	/*-- Providing feedback on the guesses --*/
  
 function guessDiff(randomNumber, guess) {
-		
 	if(randomNumber > guess){
 		guessDiff = randomNumber - guess;
 	}
@@ -145,11 +144,6 @@ function giveFeedback(guessDiff){
 	else if(guessDiff > 5)  {
 		feedbackElement.html("I'm boiling!");
 	}
-	
-	
-	
-	
-	
 }
 
 
