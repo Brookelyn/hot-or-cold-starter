@@ -26,12 +26,8 @@ $(document).ready(function(){
   
 
 
-
-
   	var randomNumber;
-  	var guess;
-  	var guessList;
-  	var guessCount;
+   	var guessCount;
   	var feedback;
 
 
@@ -46,6 +42,9 @@ $(document).ready(function(){
 	  	$('#guessList').html('');
 	  	$('#count').html('0');
   		$('#feedback').html('Make your guess!');
+  		$('#userGuess').prop('disabled', false);
+  		$('#userGuess').attr('placeholder','Make your guess!');
+
   	}
 
 
@@ -59,19 +58,20 @@ $(document).ready(function(){
   	/*-- Post the guess --*/
   	function postGuess() {
   		var guess = $("#userGuess").val();
+  		guess = +guess;
   		if(checkGuess(guess)) {
   			var listItem = '<li>' + guess + '</li>';
   			$('#guessList').append(listItem);
   			incCounter();
   		}
-  		giveFeedback();
+  		giveFeedback(guess);
   		$('#userGuess').val('');
   	}
 
 
   	/*-- Check the guess is valid --*/
   	function checkGuess(guess) {
-  		guess = +guess;
+
   		var checking = true;
   		if((typeof guess != 'number') || (guess % 1 != 0)) {
   			checking = false;
@@ -104,12 +104,40 @@ $(document).ready(function(){
   	/*-- Providing feedback on the guesses --*/
 
 function giveFeedback(guess){
-
-
+	var feedbackElement = $('#feedback');
+	if(guess == randomNumber){
+		feedbackElement.html('You got it! Well done!');
+		$('#userGuess').prop('disabled', true);
+		$('#userGuess').attr('placeholder','Game over!');
+	}
+	else if(isInRange(guess, 5)) {
+		feedbackElement.html("I'm boiling!");
+	}
+	else if(isInRange(guess, 10)) {
+		feedbackElement.html("It's getting hotter...");
+	}
+	else if(isInRange(guess, 20)) {
+		feedbackElement.html("Warming up...");
+	}
+	else if(isInRange(guess, 30)) {
+		feedbackElement.html("Does it feel chilly to you?");
+	}
+	else if(isInRange(guess, 40)) {
+		feedbackElement.html("Brrr, it's cold!");
+	}
+	else if(isInRange(guess, 50)) {
+		feedbackElement.html("I'm freezing!");
+	}
+		
 }
 
 
-
+function isInRange(guess, range){
+	var lowerBound = Math.abs(guess - randomNumber);
+	var upperBound = Math.abs(guess + randomNumber);
+	return (lowerBound <= randomNumber - range) || (randomNumber + range >= upperBound);
+	
+}
   	
  
 
