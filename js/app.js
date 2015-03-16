@@ -66,13 +66,16 @@ $(document).ready(function(){
   			var listItem = '<li>' + guess + '</li>';
   			$('#guessList').append(listItem);
   			incCounter();
+  			guessDiff();
+  			giveFeedback(diff);
   		}
-  		guessDiff();
-  		alert(diff);
-  		giveFeedback(diff);
   		$('#userGuess').val('');
   	}
 
+if(guess = ''){
+  			checking = false;
+  			alert("Oops, looks like you forgot to enter a number!")
+  		}
 
   	/*-- Check the guess is valid --*/
   	function checkGuess(guess) {
@@ -89,6 +92,7 @@ $(document).ready(function(){
   			checking = false;
   			alert('Please enter a number between 1 and 100');
   		}
+
    		else {
   			checking = true;
   		}
@@ -125,6 +129,10 @@ function giveFeedback(diff){
 	if(diff == 0){
 		feedbackElement.html('You got it! Well done!');
 		$('#userGuess').prop('disabled', true);
+		$('#guessButton').prop('disabled', true)
+		.css('background', '#1F253D')
+		.css('color','#95a5a6')
+		.css('cursor', 'default');
 		$('#userGuess').attr('placeholder','Game over!');
 	}
 	
@@ -141,86 +149,12 @@ function giveFeedback(diff){
 		feedbackElement.html("Warming up...");
 	}
 	else if(diff > 10) {
-		feedbackElement.html("It's getting hotter..");
+		feedbackElement.html("It's getting hotter...");
 	}
 	else if(diff > 5)  {
 		feedbackElement.html("I'm boiling!");
 	}
 }
-
-
-
-  	
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
