@@ -30,6 +30,7 @@ $(document).ready(function(){
    	var guessCount;
   	var feedback;
   	var guess;
+  	
 
 
 
@@ -37,7 +38,7 @@ $(document).ready(function(){
   	newGame();
 
   	function newGame() {
-  		var randomNumber = getRandomNumber();
+  		randomNumber = getRandomNumber();
 	  	console.log('Secret number is ' + randomNumber);
 	  	guessCount = 0;
 	  	$('#guessList').html('');
@@ -58,7 +59,7 @@ $(document).ready(function(){
 
   	/*-- Post the guess --*/
   	function postGuess() {
-  		var guess = $("#userGuess").val();
+  		guess = $("#userGuess").val();
   		guess = +guess;
   		if(checkGuess(guess)) {
   			var listItem = '<li>' + guess + '</li>';
@@ -66,8 +67,8 @@ $(document).ready(function(){
   			incCounter();
   		}
   		guessDiff();
-  		alert(guessDiff);
-  		giveFeedback();
+  		alert(diff);
+  		giveFeedback(diff);
   		$('#userGuess').val('');
   	}
 
@@ -105,43 +106,43 @@ $(document).ready(function(){
 
   	/*-- Providing feedback on the guesses --*/
  
-function guessDiff(randomNumber, guess) {
+function guessDiff() {
 	if(randomNumber > guess){
-		guessDiff = randomNumber - guess;
+		diff = randomNumber - guess;
 	}
 	else if (guess > randomNumber) {
-		guessDiff = guess - randomNumber;
+		diff = guess - randomNumber;
 	}
-	return guessDiff;
-	alert(guessDiff);
+	return diff;
+	alert(diff);
 }
 
 
-function giveFeedback(guessDiff){
+function giveFeedback(diff){
 	var feedbackElement = $('#feedback');
 	
-	if(guessDiff == 0){
+	if(diff == 0){
 		feedbackElement.html('You got it! Well done!');
 		$('#userGuess').prop('disabled', true);
 		$('#userGuess').attr('placeholder','Game over!');
 	}
 	
-	else if(guessDiff > 50) {
+	else if(diff > 50) {
 		feedbackElement.html("I'm freezing!");
 	}
-	else if(guessDiff > 40) {
+	else if(diff > 40) {
 		feedbackElement.html(" Brrr, it's cold!");
 	}	
-	else if(guessDiff > 30) {
+	else if(diff > 30) {
 		feedbackElement.html(" Does it feel chilly to you?");
 	}
-	else if(guessDiff >  20) {
+	else if(diff >  20) {
 		feedbackElement.html("Warming up...");
 	}
-	else if(guessDiff > 10) {
+	else if(diff > 10) {
 		feedbackElement.html("It's getting hotter..");
 	}
-	else if(guessDiff > 5)  {
+	else if(diff > 5)  {
 		feedbackElement.html("I'm boiling!");
 	}
 }
