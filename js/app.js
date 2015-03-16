@@ -29,6 +29,7 @@ $(document).ready(function(){
   	var randomNumber;
    	var guessCount;
   	var feedback;
+  	var guess;
 
 
 
@@ -36,7 +37,7 @@ $(document).ready(function(){
   	newGame();
 
   	function newGame() {
-  		randomNumber = getRandomNumber();
+  		var randomNumber = getRandomNumber();
 	  	console.log('Secret number is ' + randomNumber);
 	  	guessCount = 0;
 	  	$('#guessList').html('');
@@ -64,14 +65,15 @@ $(document).ready(function(){
   			$('#guessList').append(listItem);
   			incCounter();
   		}
-  		giveFeedback(guess);
+  		guessDiff();
+  		alert(guessDiff);
+  		giveFeedback();
   		$('#userGuess').val('');
   	}
 
 
   	/*-- Check the guess is valid --*/
   	function checkGuess(guess) {
-
   		var checking = true;
   		if((typeof guess != 'number') || (guess % 1 != 0)) {
   			checking = false;
@@ -102,42 +104,56 @@ $(document).ready(function(){
 
 
   	/*-- Providing feedback on the guesses --*/
+ 
+function guessDiff(randomNumber, guess) {
+		
+	if(randomNumber > guess){
+		guessDiff = randomNumber - guess;
+	}
+	else if (guess > randomNumber) {
+		guessDiff = guess - randomNumber;
+	}
+	return guessDiff;
+	alert(guessDiff);
+}
 
-function giveFeedback(guess){
+
+function giveFeedback(guessDiff){
 	var feedbackElement = $('#feedback');
-	if(guess == randomNumber){
+	
+	if(guessDiff == 0){
 		feedbackElement.html('You got it! Well done!');
 		$('#userGuess').prop('disabled', true);
 		$('#userGuess').attr('placeholder','Game over!');
 	}
-	else if(isInRange(guess, 5)) {
-		feedbackElement.html("I'm boiling!");
-	}
-	else if(isInRange(guess, 10)) {
-		feedbackElement.html("It's getting hotter...");
-	}
-	else if(isInRange(guess, 20)) {
-		feedbackElement.html("Warming up...");
-	}
-	else if(isInRange(guess, 30)) {
-		feedbackElement.html("Does it feel chilly to you?");
-	}
-	else if(isInRange(guess, 40)) {
-		feedbackElement.html("Brrr, it's cold!");
-	}
-	else if(isInRange(guess, 50)) {
+	
+	else if(guessDiff > 50) {
 		feedbackElement.html("I'm freezing!");
 	}
-		
-}
-
-
-function isInRange(guess, range){
-	var lowerBound = Math.abs(guess - randomNumber);
-	var upperBound = Math.abs(guess + randomNumber);
-	return (lowerBound <= randomNumber - range) || (randomNumber + range >= upperBound);
+	else if(guessDiff > 40) {
+		feedbackElement.html(" Brrr, it's cold!");
+	}	
+	else if(guessDiff > 30) {
+		feedbackElement.html(" Does it feel chilly to you?");
+	}
+	else if(guessDiff >  20) {
+		feedbackElement.html("Warming up...");
+	}
+	else if(guessDiff > 10) {
+		feedbackElement.html("It's getting hotter..");
+	}
+	else if(guessDiff > 5)  {
+		feedbackElement.html("I'm boiling!");
+	}
+	
+	
+	
+	
 	
 }
+
+
+
   	
  
 
